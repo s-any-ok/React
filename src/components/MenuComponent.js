@@ -10,24 +10,11 @@ import {
 import { Link } from "react-router-dom";
 import { Loading } from "./LoadingComponent";
 
-function RenderMenuItem({ dish, onClick }) {
-  return (
-    <Card>
-      <Link to={`/menu/${dish.id}`}>
-        <CardImg width="100%" src={dish.image} alt={dish.name} />
-        <CardImgOverlay>
-          <CardTitle>{dish.name}</CardTitle>
-        </CardImgOverlay>
-      </Link>
-    </Card>
-  );
-}
-
 const Menu = (props) => {
   const menu = props.dishes.dishes.map((dish) => {
     return (
       <div className="col-12 col-md-5 m-1">
-        <RenderMenuItem dish={dish} />
+        <MenuItem dish={dish} />
       </div>
     );
   });
@@ -69,6 +56,19 @@ const Menu = (props) => {
       </div>
     );
   }
+};
+
+const MenuItem = ({ dish }) => {
+  return (
+    <Card>
+      <Link to={`/menu/${dish.id}`}>
+        <CardImg width="100%" src={dish.image} alt={dish.name} />
+        <CardImgOverlay>
+          <CardTitle>{dish.name}</CardTitle>
+        </CardImgOverlay>
+      </Link>
+    </Card>
+  );
 };
 
 export default Menu;
