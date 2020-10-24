@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Row, Col, Label } from "reactstrap";
-import { Control, LocalForm, Errors } from "react-redux-form";
+import { Control, Form, Errors } from "react-redux-form";
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !val || val.length <= len;
@@ -10,7 +10,7 @@ const validEmail = (val) =>
   /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
 const LocationForm = ({ handleSubmit }) => {
   return (
-    <LocalForm onSubmit={(values) => handleSubmit(values)}>
+    <Form model="feedback" onSubmit={(values) => handleSubmit(values)}>
       <Row className="form-group">
         <Label htmlFor="firstname" md={2}>
           First Name
@@ -172,7 +172,7 @@ const LocationForm = ({ handleSubmit }) => {
           </Button>
         </Col>
       </Row>
-    </LocalForm>
+    </Form>
   );
 };
 

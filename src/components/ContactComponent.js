@@ -5,6 +5,7 @@ import LocationForm from "./Forms/LocationForm";
 class Contact extends Component {
   handleSubmit = (values) => {
     alert("Current State is: " + JSON.stringify(values));
+    this.props.resetFeedbackForm();
   };
 
   render() {
