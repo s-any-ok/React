@@ -51,20 +51,38 @@ export const addPromos = (promos) => ({
 
 export const fetchDishes = () => (dispatch) => {
   dispatch(dishesLoading());
-  return fetch(baseUrl + "dishes")
-    .then((response) => response.json())
-    .then((dishes) => dispatch(addDishes(dishes)));
+  return fetchCheckError("dishes", addDishes, dishesFailed, dispatch);
 };
 
 export const fetchComments = () => (dispatch) => {
-  return fetch(baseUrl + "comments")
-    .then((response) => response.json())
-    .then((comments) => dispatch(addComments(comments)));
+  return fetchCheckError("comments", addComments, commentsFailed, dispatch);
 };
 
 export const fetchPromos = () => (dispatch) => {
   dispatch(promosLoading());
-  return fetch(baseUrl + "promotions")
+  return fetchCheckError("promotions", addPromos, promosFailed, dispatch);
+};
+//--------------------Helpers--------------------//
+const fetchCheckError = (path, addAction, faildAction, dispatch) => {
+  return fetch(baseUrl + path)
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errmess = new Error(error.message);
+        throw errmess;
+      }
+    )
     .then((response) => response.json())
-    .then((promos) => dispatch(addPromos(promos)));
+    .then((items) => dispatch(addAction(items)))
+    .catch((error) => dispatch(faildAction(error.message)));
 };
