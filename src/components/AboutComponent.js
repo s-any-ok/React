@@ -8,6 +8,7 @@ import {
   Media,
 } from "reactstrap";
 import { Link } from "react-router-dom";
+import { baseUrl } from "../shared/baseUrl";
 
 const About = (props) => {
   const leaders = props.leaders.map((leader) => {
@@ -102,7 +103,7 @@ const RenderLeader = ({ leader }) => {
     <div key={leader.id} className="col-12 mt-4">
       <Media tag="li">
         <Media left middle>
-          <Media object src={leader.image} alt={leader.name} />
+          <Media object src={baseUrl + leader.image} alt={leader.name} />
         </Media>
         <Media right middle className="ml-5">
           <Media heading>{leader.name}</Media>
