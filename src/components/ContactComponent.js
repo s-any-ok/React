@@ -4,7 +4,16 @@ import { Link } from "react-router-dom";
 import LocationForm from "./Forms/LocationForm";
 class Contact extends Component {
   handleSubmit = (values) => {
-    alert("Current State is: " + JSON.stringify(values));
+    alert("Thank you for your feedback " + JSON.stringify(values));
+    this.props.postFeedback(
+      values.firstname,
+      values.lastname,
+      values.telnum,
+      values.email,
+      values.agree,
+      values.contactType,
+      values.message
+    );
     this.props.resetFeedbackForm();
   };
 

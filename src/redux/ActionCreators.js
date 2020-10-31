@@ -79,10 +79,10 @@ export const fetchComments = () => (dispatch) => {
 
 export const postComment = (dishId, rating, author, comment) => (dispatch) => {
   const newComment = {
-    dishId: dishId,
-    rating: rating,
-    author: author,
-    comment: comment,
+    dishId,
+    rating,
+    author,
+    comment,
   };
   newComment.date = new Date().toISOString();
 
@@ -115,6 +115,56 @@ export const postComment = (dishId, rating, author, comment) => (dispatch) => {
     .catch((error) => {
       console.log("post comments", error.message);
       alert("Your comment could not be posted\nError: " + error.message);
+    });
+};
+
+export const postFeedback = (
+  firstname,
+  lastname,
+  telnum,
+  email,
+  agree,
+  contactType,
+  message
+) => (dispatch) => {
+  const newFeedBack = {
+    firstname,
+    lastname,
+    telnum,
+    email,
+    agree,
+    contactType,
+    message,
+  };
+  newFeedBack.date = new Date().toISOString();
+
+  return fetch(baseUrl + "feedback", {
+    method: "POST",
+    body: JSON.stringify(newFeedBack),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "same-origin",
+  })
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        throw error;
+      }
+    )
+    .then((response) => response.json())
+    .catch((error) => {
+      alert("Your feedback could not be sent\nError: " + error.message);
     });
 };
 //--------------------Helpers--------------------//
